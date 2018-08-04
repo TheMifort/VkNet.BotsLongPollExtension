@@ -15,12 +15,12 @@ namespace VkNet.BotsLongPollExtension.Model.GroupHistoryModel
 		public ulong? Id { get; set; }
 
 		/// <summary>
-		/// Идентификатор видео
+		/// Идентификатор обсуждения
 		/// </summary>
 		public ulong? TopicId { get; set; }
 
 		/// <summary>
-		/// Идентификатор владельца видео
+		/// Идентификатор владельца обсуждения
 		/// </summary>
 		public long? TopicOwnerId { get; set; }
 
