@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 using NLog;
 using VkNet.Abstractions;
+using VkNet.BotsLongPollExtension.Model;
 using VkNet.BotsLongPollExtension.Utils;
 using VkNet.Exception;
 using VkNet.Utils;
@@ -23,13 +25,34 @@ namespace VkNet.BotsLongPollExtension
 		/// <param name="parameters"> Параметры. </param>
 		public static VkResponse CallLongPoll(this IVkApiInvoke vkApi, string server, VkParameters parameters)
 		{
-			var answer = CallBase((VkApi)vkApi, parameters, server);
+			var answer = CallBase((VkApi) vkApi, parameters, server);
 
 			var json = JObject.Parse(json: answer);
 
 			var rawResponse = json.Root;
 
-			return new VkResponse(token: rawResponse) {RawJson = answer};
+			var poll = new VkResponse(token: rawResponse) {RawJson = answer};
+
+			VkResponseArray updates = poll[key: "updates"];
+			foreach (var update in updates)
+			{
+				LogToFile(update["type"], update.ToString());
+			}
+
+			return poll;
+		}
+
+		private static void LogToFile(string type, string answer)
+		{
+			var directory =
+				$"{AppDomain.CurrentDomain.BaseDirectory}{Path.DirectorySeparatorChar}Json{Path.DirectorySeparatorChar}";
+			if (!Directory.Exists(directory))
+				Directory.CreateDirectory(directory);
+			var unixTimestamp = (int) (DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+			using (var sw = new StreamWriter(directory + type + unixTimestamp + ".json"))
+			{
+				sw.Write(answer);
+			}
 		}
 
 		/// <summary>
@@ -76,21 +99,11 @@ namespace VkNet.BotsLongPollExtension
 
 			//TODO Request limit
 
-			string answer;
+			var response = vkApi.RestClient
+				.PostAsync(new Uri(server),
+					parameters).Result;
 
-			void SendRequest(IDictionary<string, string> @params)
-			{
-				var response = vkApi.RestClient
-					.PostAsync(new Uri(server),
-						@params)
-					.ConfigureAwait(false)
-					.GetAwaiter()
-					.GetResult();
-
-				answer = response.Value ?? response.Message;
-			}
-
-			SendRequest(parameters);
+			var answer = response.Value ?? response.Message;
 
 			logger?.Trace(message: $"Uri = \"{server}\"");
 			logger?.Trace(message: $"Json ={Environment.NewLine}{Utilities.PreetyPrintJson(json: answer)}");
