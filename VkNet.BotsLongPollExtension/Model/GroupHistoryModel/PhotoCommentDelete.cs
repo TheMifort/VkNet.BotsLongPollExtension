@@ -17,7 +17,7 @@ namespace VkNet.BotsLongPollExtension.Model.GroupHistoryModel
 		/// <summary>
 		/// Идентификатор фотографии
 		/// </summary>
-		public ulong? PhotoId { get; set; }
+		public long? PhotoId { get; set; }
 
 		/// <summary>
 		/// Идентификатор владельца фотографии

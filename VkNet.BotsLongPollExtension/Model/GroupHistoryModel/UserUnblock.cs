@@ -12,12 +12,12 @@ namespace VkNet.BotsLongPollExtension.Model.GroupHistoryModel
 		/// <summary>
 		/// Идентификатор пользователя
 		/// </summary>
-		public ulong? UserId { get; set; }
+		public long? UserId { get; set; }
 
 		/// <summary>
 		/// Идентификатор администратора, который убрал пользователя из чёрного списка
 		/// </summary>
-		public ulong? AdminId { get; set; }
+		public long? AdminId { get; set; }
 
 		/// <summary>
 		/// Была ли разблокировка по окончанию блокировки

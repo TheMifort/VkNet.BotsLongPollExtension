@@ -13,12 +13,12 @@ namespace VkNet.BotsLongPollExtension.Model.GroupHistoryModel
 		/// <summary>
 		/// Идентификатор пользователя
 		/// </summary>
-		public ulong? UserId { get; set; }
+		public long? UserId { get; set; }
 
 		/// <summary>
 		/// Идентификатор администратора, который внёс пользователя в чёрный список
 		/// </summary>
-		public ulong? AdminId { get; set; }
+		public long? AdminId { get; set; }
 
 		/// <summary>
 		/// Новый уровень полномочий

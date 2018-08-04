@@ -17,7 +17,7 @@ namespace VkNet.BotsLongPollExtension.Model.GroupHistoryModel
 		/// <summary>
 		/// Идентификатор видео
 		/// </summary>
-		public ulong? VideoId { get; set; }
+		public long? VideoId { get; set; }
 
 		/// <summary>
 		/// Идентификатор владельца видео

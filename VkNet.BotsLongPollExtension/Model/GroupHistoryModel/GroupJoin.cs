@@ -15,7 +15,7 @@ namespace VkNet.BotsLongPollExtension.Model.GroupHistoryModel
 		/// <summary>
 		/// Идентификатор пользователя
 		/// </summary>
-		public ulong? UserId { get; set; }
+		public long? UserId { get; set; }
 
 		/// <summary>
 		/// Указывает, как именно был добавлен участник.

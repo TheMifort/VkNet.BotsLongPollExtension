@@ -18,7 +18,7 @@ namespace VkNet.BotsLongPollExtension.Model.GroupHistoryModel
 		/// <summary>
 		/// Идентификатор записи, к которой был оставлен комментарий
 		/// </summary>
-		public ulong? PostId { get; set; }
+		public long? PostId { get; set; }
 
 		/// <summary>
 		/// Идентификатор владельца стены
