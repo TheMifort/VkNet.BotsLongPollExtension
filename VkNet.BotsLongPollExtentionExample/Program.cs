@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using VkNet.Abstractions;
 using VkNet.BotsLongPollExtension.Categories;
@@ -36,7 +37,7 @@ namespace VkNet.BotsLongPollExtentionExample
 					Wait = 25
 				});
 				ts = history.Ts;
-				Console.WriteLine(history.Updates.Count);
+				Console.WriteLine(history.Updates.Count());
 				foreach (var update in history.Updates)
 				{
 					Console.WriteLine(update.Type);

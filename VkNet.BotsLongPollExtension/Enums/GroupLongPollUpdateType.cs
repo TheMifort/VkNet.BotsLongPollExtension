@@ -188,7 +188,7 @@
 		/// <summary>
 		/// Редактирование списка руководителей
 		/// </summary>
-		GropOfficersEdit,
+		GroupOfficersEdit,
 
 		/// <summary>
 		/// Изменение настроек сообщества

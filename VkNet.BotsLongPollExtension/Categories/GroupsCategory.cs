@@ -7,6 +7,9 @@ using VkNet.Utils;
 
 namespace VkNet.BotsLongPollExtension.Categories
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public static class GroupsCategory
 	{
 		/// <summary>
@@ -28,7 +31,7 @@ namespace VkNet.BotsLongPollExtension.Categories
 		public static Task<GroupsLongPollHistoryResponse> GetGroupLongPollHistoryAsync(
 			this IGroupsCategory groupsCategory, GroupsLongPollHistoryParams @params)
 		{
-			return TypeHelper.TryInvokeMethodAsync<GroupsLongPollHistoryResponse>(func: () =>
+			return TypeHelper.TryInvokeMethodAsync(() =>
 				GetGroupLongPollHistory(groupsCategory, @params));
 		}
 	}

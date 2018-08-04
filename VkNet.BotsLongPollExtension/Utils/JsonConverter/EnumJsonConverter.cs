@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace VkNet.BotsLongPollExtension.Utils.JsonConverter
 {
 	/// <summary>
-	/// Конвертер для перечислений контакта(убирает "_" и не учит
+	/// Конвертер для перечислений контакта(убирает "_" и не учитывает регистр)
 	/// </summary>
 	public class EnumJsonConverter : Newtonsoft.Json.JsonConverter
 	{
