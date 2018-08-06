@@ -20,6 +20,7 @@ namespace VkNet.BotsLongPollExtension.Model.GroupHistoryModel
 		/// <summary>
 		/// Указывает, как именно был добавлен участник.
 		/// </summary>
+		[JsonProperty("join_type")]
 		[JsonConverter(typeof(EnumJsonConverter))]
 		public GroupJoinType? JoinType { get; set; }
 

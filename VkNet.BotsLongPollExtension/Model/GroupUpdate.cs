@@ -247,7 +247,7 @@ namespace VkNet.BotsLongPollExtension.Model
 					break;
 				case GroupLongPollUpdateType.GroupLeave:
 					fromJson.GroupLeave = GroupLeave.FromJson(resObj);
-					fromJson.UserId = fromJson.GroupLeave.IsSelf == true ? fromJson.UserId : null;
+					fromJson.UserId = fromJson.GroupLeave.IsSelf == true ? fromJson.GroupLeave.UserId : null;
 					break;
 				case GroupLongPollUpdateType.GroupJoin:
 					fromJson.GroupJoin = GroupJoin.FromJson(resObj);

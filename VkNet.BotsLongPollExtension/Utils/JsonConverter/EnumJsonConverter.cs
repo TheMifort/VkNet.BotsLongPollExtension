@@ -28,6 +28,11 @@ namespace VkNet.BotsLongPollExtension.Utils.JsonConverter
 
 			var enumValue = reader.Value.ToString().Replace("_", "");
 
+			if (objectType.IsGenericType &&
+			    objectType.GetGenericTypeDefinition() == typeof(Nullable<>))
+			{
+				objectType = objectType.GetGenericArguments()[0];
+			}
 			var result = Activator.CreateInstance(objectType);
 
 			foreach (var variable in Enum.GetValues(objectType))
