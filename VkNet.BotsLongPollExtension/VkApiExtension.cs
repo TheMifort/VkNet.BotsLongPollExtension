@@ -5,10 +5,10 @@ using System.Linq;
 using Newtonsoft.Json.Linq;
 using NLog;
 using VkNet.Abstractions;
-using VkNet.BotsLongPollExtension.Model;
 using VkNet.BotsLongPollExtension.Utils;
 using VkNet.Exception;
 using VkNet.Utils;
+using RestClient = VkNet.BotsLongPollExtension.Utils.RestClient;
 
 namespace VkNet.BotsLongPollExtension
 {
@@ -34,10 +34,11 @@ namespace VkNet.BotsLongPollExtension
 			var poll = new VkResponse(token: rawResponse) {RawJson = answer};
 
 			VkResponseArray updates = poll[key: "updates"];
-			foreach (var update in updates)
-			{
-				LogToFile(update["type"], update.ToString());
-			}
+			if (updates != null)
+				foreach (var update in updates)
+				{
+					LogToFile(update["type"], update.ToString());
+				}
 
 			return poll;
 		}
@@ -97,11 +98,11 @@ namespace VkNet.BotsLongPollExtension
 				throw new AccessTokenInvalidException(message: message);
 			}
 
-			//TODO Request limit
+			//TODO Request limits
 
 			var response = vkApi.RestClient
 				.PostAsync(new Uri(server),
-					parameters).Result;
+					parameters).ConfigureAwait(false).GetAwaiter().GetResult();
 
 			var answer = response.Value ?? response.Message;
 

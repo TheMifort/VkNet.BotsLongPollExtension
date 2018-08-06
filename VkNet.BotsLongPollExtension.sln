@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VkNet.BotsLongPollExtension", "VkNet.BotsLongPollExtension\VkNet.BotsLongPollExtension.csproj", "{39CF8E7A-F588-49B9-85CB-3238D9941FE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VkNet.BotsLongPollExtension", "VkNet.BotsLongPollExtension\VkNet.BotsLongPollExtension.csproj", "{39CF8E7A-F588-49B9-85CB-3238D9941FE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VkNet.BotsLongPollExtentionExample", "VkNet.BotsLongPollExtentionExample\VkNet.BotsLongPollExtentionExample.csproj", "{878BE70A-41DD-4C0E-B26B-538D68F6382F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VkNet.BotsLongPollExtensionExample", "VkNet.BotsLongPollExtensionExample\VkNet.BotsLongPollExtensionExample.csproj", "{878BE70A-41DD-4C0E-B26B-538D68F6382F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VkNet.BotsLongPollExtension.Tests", "VkNet.BotsLongPollExtension.Tests\VkNet.BotsLongPollExtension.Tests.csproj", "{95AC7FDC-9BC9-4D32-957C-D0403005D79A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{878BE70A-41DD-4C0E-B26B-538D68F6382F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{878BE70A-41DD-4C0E-B26B-538D68F6382F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{878BE70A-41DD-4C0E-B26B-538D68F6382F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95AC7FDC-9BC9-4D32-957C-D0403005D79A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95AC7FDC-9BC9-4D32-957C-D0403005D79A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95AC7FDC-9BC9-4D32-957C-D0403005D79A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95AC7FDC-9BC9-4D32-957C-D0403005D79A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

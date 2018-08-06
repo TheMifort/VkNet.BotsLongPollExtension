@@ -172,7 +172,7 @@ namespace VkNet.BotsLongPollExtension.Model
 				case GroupLongPollUpdateType.MessageEdit:
 				case GroupLongPollUpdateType.MessageReply:
 					fromJson.Message = resObj;
-					fromJson.UserId = fromJson.Message.UserId;
+					fromJson.UserId = fromJson.Message.FromId;
 					break;
 				case GroupLongPollUpdateType.MessageAllow:
 					fromJson.MessageAllow = MessageAllow.FromJson(resObj);
@@ -184,7 +184,6 @@ namespace VkNet.BotsLongPollExtension.Model
 					break;
 				case GroupLongPollUpdateType.PhotoNew:
 					fromJson.Photo = resObj;
-					fromJson.UserId = fromJson.Photo.UserId;
 					break;
 				case GroupLongPollUpdateType.PhotoCommentNew:
 				case GroupLongPollUpdateType.PhotoCommentEdit:
@@ -194,7 +193,7 @@ namespace VkNet.BotsLongPollExtension.Model
 					break;
 				case GroupLongPollUpdateType.PhotoCommentDelete:
 					fromJson.PhotoCommentDelete = PhotoCommentDelete.FromJson(resObj);
-					fromJson.UserId = fromJson.PhotoCommentDelete.DeletorId;
+					fromJson.UserId = fromJson.PhotoCommentDelete.DeleterId;
 					break;
 				case GroupLongPollUpdateType.AudioNew:
 					fromJson.Audio = resObj;
@@ -210,7 +209,7 @@ namespace VkNet.BotsLongPollExtension.Model
 					break;
 				case GroupLongPollUpdateType.VideoCommentDelete:
 					fromJson.VideoCommentDelete = VideoCommentDelete.FromJson(resObj);
-					fromJson.UserId = fromJson.VideoCommentDelete.DeletorId;
+					fromJson.UserId = fromJson.VideoCommentDelete.DeleterId;
 					break;
 				case GroupLongPollUpdateType.WallPostNew:
 				case GroupLongPollUpdateType.WallRepost:
@@ -225,13 +224,13 @@ namespace VkNet.BotsLongPollExtension.Model
 					break;
 				case GroupLongPollUpdateType.WallReplyDelete:
 					fromJson.WallReplyDelete = WallReplyDelete.FromJson(resObj);
-					fromJson.UserId = fromJson.WallReplyDelete.DeletorId;
+					fromJson.UserId = fromJson.WallReplyDelete.DeleterId;
 					break;
 				case GroupLongPollUpdateType.BoardPostNew:
 				case GroupLongPollUpdateType.BoardPostEdit:
 				case GroupLongPollUpdateType.BoardPostRestore:
 					fromJson.BoardPost = BoardPost.FromJson(resObj);
-					fromJson.UserId = fromJson.BoardPost.CommentBoard.FromId;
+					fromJson.UserId = fromJson.BoardPost.CommentBoard.FromId > 0 ? fromJson.BoardPost.CommentBoard.FromId : (long?) null;
 					break;
 				case GroupLongPollUpdateType.BoardPostDelete:
 					fromJson.BoardPostDelete = BoardPostDelete.FromJson(resObj);
@@ -244,7 +243,7 @@ namespace VkNet.BotsLongPollExtension.Model
 					break;
 				case GroupLongPollUpdateType.MarketCommentDelete:
 					fromJson.MarketCommentDelete = MarketCommentDelete.FromJson(resObj);
-					fromJson.UserId = fromJson.MarketCommentDelete.DeletorId;
+					fromJson.UserId = fromJson.MarketCommentDelete.DeleterId;
 					break;
 				case GroupLongPollUpdateType.GroupLeave:
 					fromJson.GroupLeave = GroupLeave.FromJson(resObj);

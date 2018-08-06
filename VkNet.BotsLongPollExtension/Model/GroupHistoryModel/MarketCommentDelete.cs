@@ -32,7 +32,7 @@ namespace VkNet.BotsLongPollExtension.Model.GroupHistoryModel
 		/// <summary>
 		/// Идентификатор пользователя, который удалил комментарий
 		/// </summary>
-		public long? DeletorId { get; set; }
+		public long? DeleterId { get; set; }
 
 		/// <summary>
 		/// Разобрать из json.
@@ -46,7 +46,7 @@ namespace VkNet.BotsLongPollExtension.Model.GroupHistoryModel
 				ItemId = response["item_id"],
 				OwnerId = response["owner_id"],
 				UserId = response["user_id"],
-				DeletorId = response["deletor_id"]
+				DeleterId = response["deleter_id"]
 			};
 		}
 	}

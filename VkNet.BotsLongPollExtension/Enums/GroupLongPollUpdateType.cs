@@ -191,11 +191,6 @@
 		GroupOfficersEdit,
 
 		/// <summary>
-		/// Изменение настроек сообщества
-		/// </summary>
-		GroupChangeSetting,
-
-		/// <summary>
 		/// Изменение главного фото
 		/// </summary>
 		GroupChangePhoto,

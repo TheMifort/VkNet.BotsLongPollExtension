@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using VkNet.BotsLongPollExtension.Exception;
 using VkNet.BotsLongPollExtension.Utils;
 using VkNet.Utils;
 
@@ -33,6 +34,14 @@ namespace VkNet.BotsLongPollExtension.Model
 		/// <returns> </returns>
 		public static GroupsLongPollHistoryResponse FromJson(VkResponse response)
 		{
+			if (response.ContainsKey("failed"))
+			{
+				int code = response["failed"];
+				if(code == 1) throw new BotsLongPollHistoryOutdateException(response["ts"]);
+				if(code == 2) throw new BotsLongPollHistoryKeyExpiredException();
+				if(code == 3) throw new BotsLongPollHistoryInfoLostException();
+			}
+
 			var fromJson = new GroupsLongPollHistoryResponse
 			{
 				Ts = response["ts"],
