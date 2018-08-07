@@ -18,7 +18,7 @@ namespace VkNet.BotsLongPollExtensionExample
 
 			vkApi.Authorize(new ApiAuthParams
 			{
-				AccessToken = "0e079922e65573cf43323b974130af5b534b8496837af34ab16ad4fde641c97b6196f6e20267b1f7c6d71"
+				AccessToken = "token"
 			});
 
 			var server = vkApi.Groups.GetLongPollServer(155242696);
@@ -49,7 +49,7 @@ namespace VkNet.BotsLongPollExtensionExample
 						ts = outdateException.Ts;
 					else
 					{
-						server = vkApi.Groups.GetLongPollServer(155242696);
+						server = vkApi.Groups.GetLongPollServer(123);
 						ts = server.Ts;
 					}
 				}
