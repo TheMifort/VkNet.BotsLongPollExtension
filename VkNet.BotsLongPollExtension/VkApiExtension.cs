@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 using NLog;
@@ -17,7 +16,7 @@ namespace VkNet.BotsLongPollExtension
 	public static class VkApiExtension
 	{
 		private static ILogger _logger;
-		private static bool _isLoggerNull = false;
+		private static bool _isLoggerNull;
 
 		/// <summary>
 		/// Вызвать LongPoll запрос обновления группы.
@@ -78,7 +77,7 @@ namespace VkNet.BotsLongPollExtension
 				var message = $"Сервер не должен быть пустым или null";
 				_logger?.Error(message: message);
 
-				throw new AccessTokenInvalidException(message: message);
+				throw new InvalidServerException(message);
 			}
 
 			//TODO Request limits
