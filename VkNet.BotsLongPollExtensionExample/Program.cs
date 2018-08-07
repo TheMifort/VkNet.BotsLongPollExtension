@@ -1,22 +1,20 @@
 ﻿using System;
-using System.Linq;
 using System.Threading;
 using Microsoft.Extensions.DependencyInjection;
-using VkNet.Abstractions;
 using VkNet.Abstractions.Utils;
 using VkNet.BotsLongPollExtension.Categories;
 using VkNet.BotsLongPollExtension.Exception;
 using VkNet.BotsLongPollExtension.Model.RequestParams.Groups;
-using VkNet.BotsLongPollExtension.Utils;
 using VkNet.Model;
+using VkNet.Utils;
 
 namespace VkNet.BotsLongPollExtensionExample
 {
-	class Program
+	static class Program
 	{
-		static void Main(string[] args)
+		static void Main()
 		{
-			var vkApi = new VkApi(new ServiceCollection().AddSingleton<IRestClient,RestClient>());
+			var vkApi = new VkApi(new ServiceCollection().AddSingleton<IRestClient, RestClient>());
 
 			vkApi.Authorize(new ApiAuthParams
 			{
@@ -25,32 +23,25 @@ namespace VkNet.BotsLongPollExtensionExample
 
 			var server = vkApi.Groups.GetLongPollServer(155242696);
 
-			HistoryListner(vkApi, server);
-		}
-
-		static void HistoryListner(IVkApi api, LongPollServerResponse server)
-		{
 			var ts = server.Ts;
 			while (true)
 			{
 				try
 				{
+					var history = vkApi.Groups.GetGroupLongPollHistory(new GroupsLongPollHistoryParams
+					{
+						Key = server.Key,
+						Server = server.Server,
+						Ts = ts,
+						Wait = 25
+					});
+					ts = history.Ts;
+					foreach (var update in history.Updates)
+					{
+						Console.WriteLine(update.Type);
+					}
 
-
-				var history = api.Groups.GetGroupLongPollHistory(new GroupsLongPollHistoryParams
-				{
-					Key = server.Key,
-					Server = server.Server,
-					Ts = ts,
-					Wait = 25
-				});
-				ts = history.Ts;
-				Console.WriteLine(history.Updates.Count());
-				foreach (var update in history.Updates)
-				{
-					Console.WriteLine(update.Type);
-				}
-				Thread.Sleep(100);
+					Thread.Sleep(100);
 				}
 				catch (BotsLongPollHistoryException exception)
 				{
@@ -58,7 +49,7 @@ namespace VkNet.BotsLongPollExtensionExample
 						ts = outdateException.Ts;
 					else
 					{
-						server = api.Groups.GetLongPollServer(155242696);
+						server = vkApi.Groups.GetLongPollServer(155242696);
 						ts = server.Ts;
 					}
 				}

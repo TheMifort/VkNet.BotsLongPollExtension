@@ -1,20 +1,16 @@
 ﻿using System;
 using VkNet.Model;
+using VkNet.Model.Attachments;
 using VkNet.Utils;
 
 namespace VkNet.BotsLongPollExtension.Model.GroupHistoryModel
 {
 	/// <summary>
-	/// Добавление/редактирование/восстановление комментария в обсуждении(BoardPostNew, BoardPostEdit, BoardPostRestore)
+	/// Добавление/редактирование/восстановление комментария в обсуждении(BoardPostNew, BoardPostEdit, BoardPostRestore)(CommentBoard с дополнительными полями)
 	/// </summary>
 	[Serializable]
-	public class BoardPost
+	public class BoardPost : CommentBoard
 	{
-		/// <summary>
-		/// Коментарий
-		/// </summary>
-		public CommentBoard CommentBoard { get; set; }
-
 		/// <summary>
 		/// Идентификатор обсуждения
 		/// </summary>
@@ -29,11 +25,16 @@ namespace VkNet.BotsLongPollExtension.Model.GroupHistoryModel
 		/// Разобрать из json.
 		/// </summary>
 		/// <param name="response"> Ответ сервера. </param>
-		public static BoardPost FromJson(VkResponse response)
+		public new static BoardPost FromJson(VkResponse response)
 		{
 			return new BoardPost
 			{
-				CommentBoard = response,
+				Id = response[key: "id"],
+				FromId = response[key: "from_id"],
+				Date = response[key: "date"],
+				Text = response[key: "text"],
+				Likes = response[key: "likes"],
+				Attachments = response[key: "attachments"].ToReadOnlyCollectionOf<Attachment>(selector: x => x),
 				TopicId = response["topic_id"],
 				TopicOwnerId = response["topic_owner_id"]
 			};

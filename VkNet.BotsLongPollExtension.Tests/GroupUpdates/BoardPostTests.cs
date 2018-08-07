@@ -20,8 +20,8 @@ namespace VkNet.BotsLongPollExtension.Tests.GroupUpdates
 
 			Assert.AreEqual(groupId, update.GroupId);
 			Assert.AreEqual(userId, update.UserId);
-			Assert.AreEqual(userId, update.BoardPost.CommentBoard.FromId);
-			Assert.AreEqual(text, update.BoardPost.CommentBoard.Text);
+			Assert.AreEqual(userId, update.BoardPost.FromId);
+			Assert.AreEqual(text, update.BoardPost.Text);
 			Assert.AreEqual(-groupId, update.BoardPost.TopicOwnerId);
 		}
 
@@ -38,9 +38,9 @@ namespace VkNet.BotsLongPollExtension.Tests.GroupUpdates
 
 			var update = GroupUpdate.FromJson(vkResponse);
 
-			Assert.AreEqual(-groupId, update.BoardPost.CommentBoard.FromId);
+			Assert.AreEqual(-groupId, update.BoardPost.FromId);
 			Assert.AreEqual(groupId, update.GroupId);
-			Assert.AreEqual(text, update.BoardPost.CommentBoard.Text);
+			Assert.AreEqual(text, update.BoardPost.Text);
 			Assert.AreEqual(-groupId, update.BoardPost.TopicOwnerId);
 			Assert.AreEqual(topicId, update.BoardPost.TopicId);
 		}
@@ -58,9 +58,9 @@ namespace VkNet.BotsLongPollExtension.Tests.GroupUpdates
 
 			var update = GroupUpdate.FromJson(vkResponse);
 
-			Assert.AreEqual(-groupId, update.BoardPost.CommentBoard.FromId);
+			Assert.AreEqual(-groupId, update.BoardPost.FromId);
 			Assert.AreEqual(groupId, update.GroupId);
-			Assert.AreEqual(text, update.BoardPost.CommentBoard.Text);
+			Assert.AreEqual(text, update.BoardPost.Text);
 			Assert.AreEqual(-groupId, update.BoardPost.TopicOwnerId);
 		}
 
@@ -78,9 +78,9 @@ namespace VkNet.BotsLongPollExtension.Tests.GroupUpdates
 			var update = GroupUpdate.FromJson(vkResponse);
 
 			Assert.AreEqual(userId, update.UserId);
-			Assert.AreEqual(userId, update.BoardPost.CommentBoard.FromId);
+			Assert.AreEqual(userId, update.BoardPost.FromId);
 			Assert.AreEqual(groupId, update.GroupId);
-			Assert.AreEqual(text, update.BoardPost.CommentBoard.Text);
+			Assert.AreEqual(text, update.BoardPost.Text);
 			Assert.AreEqual(-groupId, update.BoardPost.TopicOwnerId);
 		}
 

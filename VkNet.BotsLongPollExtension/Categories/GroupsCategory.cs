@@ -12,6 +12,8 @@ namespace VkNet.BotsLongPollExtension.Categories
 	/// </summary>
 	public static class GroupsCategory
 	{
+		private static IVkApiInvoke _vk;
+
 		/// <summary>
 		/// Возвращаем обновления событий группы
 		/// </summary>
@@ -20,7 +22,9 @@ namespace VkNet.BotsLongPollExtension.Categories
 		public static GroupsLongPollHistoryResponse GetGroupLongPollHistory(this IGroupsCategory groupsCategory,
 			GroupsLongPollHistoryParams @params)
 		{
-			return ReflectionHelper.GetPrivateField<IVkApiInvoke>(groupsCategory,"_vk").CallLongPoll(@params.Server, GroupsLongPollHistoryParams.ToVkParameters(@params));
+			if (_vk == null) _vk = ReflectionHelper.GetPrivateField<IVkApiInvoke>(groupsCategory, "_vk");
+			return GroupsLongPollHistoryResponse.FromJson(_vk.CallLongPoll(@params.Server,
+				GroupsLongPollHistoryParams.ToVkParameters(@params)));
 		}
 
 		/// <summary>

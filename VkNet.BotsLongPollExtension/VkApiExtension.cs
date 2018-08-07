@@ -8,7 +8,6 @@ using VkNet.Abstractions;
 using VkNet.BotsLongPollExtension.Utils;
 using VkNet.Exception;
 using VkNet.Utils;
-using RestClient = VkNet.BotsLongPollExtension.Utils.RestClient;
 
 namespace VkNet.BotsLongPollExtension
 {
@@ -17,6 +16,9 @@ namespace VkNet.BotsLongPollExtension
 	/// </summary>
 	public static class VkApiExtension
 	{
+		private static ILogger _logger;
+		private static bool _isLoggerNull = false;
+
 		/// <summary>
 		/// Вызвать LongPoll запрос обновления группы.
 		/// </summary>
@@ -31,29 +33,7 @@ namespace VkNet.BotsLongPollExtension
 
 			var rawResponse = json.Root;
 
-			var poll = new VkResponse(token: rawResponse) {RawJson = answer};
-
-			VkResponseArray updates = poll[key: "updates"];
-			if (updates != null)
-				foreach (var update in updates)
-				{
-					LogToFile(update["type"], update.ToString());
-				}
-
-			return poll;
-		}
-
-		private static void LogToFile(string type, string answer)
-		{
-			var directory =
-				$"{AppDomain.CurrentDomain.BaseDirectory}{Path.DirectorySeparatorChar}Json{Path.DirectorySeparatorChar}";
-			if (!Directory.Exists(directory))
-				Directory.CreateDirectory(directory);
-			var unixTimestamp = (int) (DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
-			using (var sw = new StreamWriter(directory + type + unixTimestamp + ".json"))
-			{
-				sw.Write(answer);
-			}
+			return new VkResponse(token: rawResponse) { RawJson = answer };
 		}
 
 		/// <summary>
@@ -71,7 +51,11 @@ namespace VkNet.BotsLongPollExtension
 				parameters.Add(name: "v", value: vkApi.VkApiVersion.Version);
 			}
 
-			ReflectionHelper.GetPrivateField<ILogger>(vkApi, "_logger")?.Debug(message:
+			if (_logger == null && !_isLoggerNull)
+				_logger = ReflectionHelper.GetPrivateField<ILogger>(vkApi, "_logger");
+			if (_logger == null) _isLoggerNull = true;
+
+			_logger?.Debug(message:
 				$"Вызов GetBotsLongPollHistory, с параметрами {string.Join(separator: ",", values: parameters.Select(selector: x => $"{x.Key}={x.Value}"))}");
 
 			//No captcha for bot api? TODO if needed
@@ -89,11 +73,10 @@ namespace VkNet.BotsLongPollExtension
 		public static string InvokeGetLongPollHistory(VkApi vkApi, IDictionary<string, string> parameters,
 			string server)
 		{
-			var logger = ReflectionHelper.GetPrivateField<ILogger>(vkApi, "_logger");
 			if (string.IsNullOrEmpty(server))
 			{
 				var message = $"Сервер не должен быть пустым или null";
-				logger?.Error(message: message);
+				_logger?.Error(message: message);
 
 				throw new AccessTokenInvalidException(message: message);
 			}
@@ -106,8 +89,8 @@ namespace VkNet.BotsLongPollExtension
 
 			var answer = response.Value ?? response.Message;
 
-			logger?.Trace(message: $"Uri = \"{server}\"");
-			logger?.Trace(message: $"Json ={Environment.NewLine}{Utilities.PreetyPrintJson(json: answer)}");
+			_logger?.Trace(message: $"Uri = \"{server}\"");
+			_logger?.Trace(message: $"Json ={Environment.NewLine}{Utilities.PreetyPrintJson(json: answer)}");
 
 			VkErrors.IfErrorThrowException(json: answer);
 

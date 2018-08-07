@@ -1,20 +1,16 @@
 ﻿using System;
 using VkNet.Model;
+using VkNet.Model.Attachments;
 using VkNet.Utils;
 
 namespace VkNet.BotsLongPollExtension.Model.GroupHistoryModel
 {
 	/// <summary>
-	/// Добавление/редактирование/восстановление комментария к товару(MarketCommentNew, MarketCommentEdit, MarketCommentRestore)
+	/// Добавление/редактирование/восстановление комментария к товару(MarketCommentNew, MarketCommentEdit, MarketCommentRestore)(Comment с дополнительными полями)
 	/// </summary>
 	[Serializable]
-	public class MarketComment
+	public class MarketComment : Comment
 	{
-		/// <summary>
-		/// Коментарий
-		/// </summary>
-		public Comment Comment { get; set; }
-
 		/// <summary>
 		/// Идентификатор товара
 		/// </summary>
@@ -29,11 +25,18 @@ namespace VkNet.BotsLongPollExtension.Model.GroupHistoryModel
 		/// Разобрать из json.
 		/// </summary>
 		/// <param name="response"> Ответ сервера. </param>
-		public static MarketComment FromJson(VkResponse response)
+		public new static MarketComment FromJson(VkResponse response)
 		{
 			return new MarketComment
 			{
-				Comment = response,
+				Id = response[key: "id"],
+				FromId = response[key: "from_id"],
+				Date = response[key: "date"],
+				Text = response[key: "text"],
+				ReplyToUserId = response[key: "reply_to_user"],
+				ReplyToCommentId = response[key: "reply_to_comment"],
+				Attachments = response[key: "attachments"].ToReadOnlyCollectionOf<Attachment>(selector: x => x),
+				Likes = response[key: "likes"],
 				ItemId = response["item_id"],
 				MarketOwnerId = response["market_owner_id"]
 			};

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using VkNet.BotsLongPollExtension.Exception;
-using VkNet.BotsLongPollExtension.Utils;
 using VkNet.Utils;
 
 namespace VkNet.BotsLongPollExtension.Model
@@ -56,18 +54,6 @@ namespace VkNet.BotsLongPollExtension.Model
 
 			fromJson.Updates = updateList;
 			return fromJson;
-		}
-		/// <summary>
-		/// Преобразовать из VkResponse
-		/// </summary>
-		/// <param name="response"> Ответ. </param>
-		/// <returns>
-		/// Результат преобразования.
-		/// </returns>
-		public static implicit operator GroupsLongPollHistoryResponse(VkResponse response)
-		{
-			var token = ReflectionHelper.GetPrivateField<JToken>(response, "_token");
-			return token == null || !token.HasValues ? null : FromJson(response: response);
 		}
 	}
 }

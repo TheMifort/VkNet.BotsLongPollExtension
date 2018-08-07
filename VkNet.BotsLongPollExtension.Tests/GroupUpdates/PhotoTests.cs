@@ -37,9 +37,9 @@ namespace VkNet.BotsLongPollExtension.Tests.GroupUpdates
 			var update = GroupUpdate.FromJson(vkResponse);
 
 			Assert.AreEqual(userId, update.UserId);
-			Assert.AreEqual(userId, update.PhotoComment.Comment.FromId);
+			Assert.AreEqual(userId, update.PhotoComment.FromId);
 			Assert.AreEqual(groupId, update.GroupId);
-			Assert.AreEqual(text, update.PhotoComment.Comment.Text);
+			Assert.AreEqual(text, update.PhotoComment.Text);
 			Assert.AreEqual(-groupId, update.PhotoComment.PhotoOwnerId);
 			Assert.AreEqual(photoId, update.PhotoComment.PhotoId);
 		}
@@ -58,9 +58,9 @@ namespace VkNet.BotsLongPollExtension.Tests.GroupUpdates
 			var update = GroupUpdate.FromJson(vkResponse);
 
 			Assert.AreEqual(userId, update.UserId);
-			Assert.AreEqual(userId, update.PhotoComment.Comment.FromId);
+			Assert.AreEqual(userId, update.PhotoComment.FromId);
 			Assert.AreEqual(groupId, update.GroupId);
-			Assert.AreEqual(text, update.PhotoComment.Comment.Text);
+			Assert.AreEqual(text, update.PhotoComment.Text);
 			Assert.AreEqual(-groupId, update.PhotoComment.PhotoOwnerId);
 		}
 
@@ -78,9 +78,9 @@ namespace VkNet.BotsLongPollExtension.Tests.GroupUpdates
 			var update = GroupUpdate.FromJson(vkResponse);
 
 			Assert.AreEqual(userId, update.UserId);
-			Assert.AreEqual(userId, update.PhotoComment.Comment.FromId);
+			Assert.AreEqual(userId, update.PhotoComment.FromId);
 			Assert.AreEqual(groupId, update.GroupId);
-			Assert.AreEqual(text, update.PhotoComment.Comment.Text);
+			Assert.AreEqual(text, update.PhotoComment.Text);
 			Assert.AreEqual(-groupId, update.PhotoComment.PhotoOwnerId);
 		}
 
