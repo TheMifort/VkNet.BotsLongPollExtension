@@ -1,0 +1,53 @@
+{
+  "type": "wall_post_new",
+  "object": {
+    "id": 10,
+    "from_id": 123,
+    "owner_id": -1234,
+    "date": 1533408426,
+    "marked_as_ads": 0,
+    "post_type": "post",
+    "text": "Test",
+    "can_edit": 1,
+    "created_by": 123,
+    "can_delete": 1,
+    "attachments": [
+      {
+        "type": "poll",
+        "poll": {
+          "id": 300843980,
+          "owner_id": -155242696,
+          "created": 1533408426,
+          "question": "Test",
+          "votes": 0,
+          "answer_id": 0,
+          "answers": [
+            {
+              "id": 1012381782,
+              "text": "Test1",
+              "votes": 0,
+              "rate": 0.0
+            },
+            {
+              "id": 1012381783,
+              "text": "Test2",
+              "votes": 0,
+              "rate": 0.0
+            },
+            {
+              "id": 1012381784,
+              "text": "Test3",
+              "votes": 0,
+              "rate": 0.0
+            }
+          ],
+          "anonymous": 0
+        }
+      }
+    ],
+    "comments": {
+      "count": 0
+    }
+  },
+  "group_id": 1234
+}

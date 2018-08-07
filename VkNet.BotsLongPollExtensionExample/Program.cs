@@ -16,12 +16,14 @@ namespace VkNet.BotsLongPollExtensionExample
 		{
 			var vkApi = new VkApi(new ServiceCollection().AddSingleton<IRestClient, RestClient>());
 
+			ulong groupId = 123;
+
 			vkApi.Authorize(new ApiAuthParams
 			{
 				AccessToken = "token"
 			});
 
-			var server = vkApi.Groups.GetLongPollServer(155242696);
+			var server = vkApi.Groups.GetLongPollServer(groupId);
 
 			var ts = server.Ts;
 			while (true)
@@ -49,7 +51,7 @@ namespace VkNet.BotsLongPollExtensionExample
 						ts = outdateException.Ts;
 					else
 					{
-						server = vkApi.Groups.GetLongPollServer(123);
+						server = vkApi.Groups.GetLongPollServer(groupId);
 						ts = server.Ts;
 					}
 				}

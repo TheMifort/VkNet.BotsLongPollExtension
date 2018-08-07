@@ -1,0 +1,18 @@
+{
+  "type": "message_edit",
+  "object": {
+    "date": 1533415919,
+    "from_id": 123,
+    "id": 850,
+    "out": 0,
+    "peer_id": 123,
+    "text": "test1",
+    "conversation_message_id": 812,
+    "fwd_messages": [],
+    "important": false,
+    "random_id": 0,
+    "attachments": [],
+    "is_hidden": false
+  },
+  "group_id": 1234
+}

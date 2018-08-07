@@ -1,23 +1,27 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.IO;
+using NUnit.Framework;
 using VkNet.BotsLongPollExtension.Model;
 
 namespace VkNet.BotsLongPollExtension.Tests.GroupUpdates
 {
 	[TestFixture]
-	public class PollVoteTests
+	public class PollVoteTest : BaseTest
 	{
+		public override string Folder { get; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Json");
+		public override string CurrentTestData { get; } = "PollVote";
+
 		[Test]
 		public void PollVoteNewTest()
 		{
-			var updateJson =
-				"{\r\n  \"type\": \"poll_vote_new\",\r\n  \"object\": {\r\n    \"owner_id\": -1234,\r\n    \"poll_id\": 4444,\r\n    \"option_id\": 3333,\r\n    \"user_id\": 123\r\n  },\r\n  \"group_id\": 1234\r\n}";
-
 			var userId = 123;
 			var groupId = 1234;
 			var optionId = 3333;
 			var pollId = 4444;
 
-			var vkResponse = updateJson.GetVkResponse();
+			var updateJson = LoadJsonFromFile("poll_vote_new");
+
+			var vkResponse = updateJson.ToVkResponse();
 
 			var update = GroupUpdate.FromJson(vkResponse);
 

@@ -1,11 +1,13 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System;
+using System.IO;
+using Newtonsoft.Json.Linq;
 using VkNet.Utils;
 
 namespace VkNet.BotsLongPollExtension.Tests
 {
-	public static class VkResponseHelper
+	public static class JsonHelper
 	{
-		public static VkResponse GetVkResponse(this string update)
+		public static VkResponse ToVkResponse(this string update)
 		{
 			var json = JObject.Parse(update);
 

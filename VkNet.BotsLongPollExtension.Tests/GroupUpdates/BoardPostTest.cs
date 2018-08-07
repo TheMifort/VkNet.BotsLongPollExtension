@@ -1,21 +1,27 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.IO;
+using NUnit.Framework;
 using VkNet.BotsLongPollExtension.Model;
 
 namespace VkNet.BotsLongPollExtension.Tests.GroupUpdates
 {
 	[TestFixture]
-	public class BoardPostTests
+	public class BoardPostTest : BaseTest
 	{
+		public override string Folder { get; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Json");
+		public override string CurrentTestData { get; } = "Board";
+
 		[Test]
 		public void BoardPostNewTest()
 		{
-			var updateJson =
-				"{\r\n  \"type\": \"board_post_new\",\r\n  \"object\": {\r\n    \"id\": 3,\r\n    \"from_id\": 123,\r\n    \"date\": 1533404752,\r\n    \"text\": \"test\",\r\n    \"topic_owner_id\": -1234,\r\n    \"topic_id\": 38446232\r\n  },\r\n  \"group_id\": 1234\r\n}";
-
 			var userId = 123;
 			var groupId = 1234;
-			var vkResponse = updateJson.GetVkResponse();
 			var text = "test";
+
+			var updateJson = LoadJsonFromFile("board_post_new");
+
+			var vkResponse = updateJson.ToVkResponse();
+
 			var update = GroupUpdate.FromJson(vkResponse);
 
 			Assert.AreEqual(groupId, update.GroupId);
@@ -28,13 +34,13 @@ namespace VkNet.BotsLongPollExtension.Tests.GroupUpdates
 		[Test]
 		public void BoardPostNewFirstTest()
 		{
-			var updateJson =
-				"{\r\n  \"type\": \"board_post_new\",\r\n  \"object\": {\r\n    \"id\": 2,\r\n    \"from_id\": -1234,\r\n    \"date\": 1533404708,\r\n    \"text\": \"test\",\r\n    \"topic_owner_id\": -1234,\r\n    \"topic_id\": 6\r\n  },\r\n  \"group_id\": 1234\r\n}";
 			var groupId = 1234;
 			var text = "test";
 			var topicId = 6;
 
-			var vkResponse = updateJson.GetVkResponse();
+			var updateJson = LoadJsonFromFile("board_post_new_first");
+
+			var vkResponse = updateJson.ToVkResponse();
 
 			var update = GroupUpdate.FromJson(vkResponse);
 
@@ -48,13 +54,12 @@ namespace VkNet.BotsLongPollExtension.Tests.GroupUpdates
 		[Test]
 		public void BoardPostEditTest()
 		{
-			var updateJson =
-				"{\r\n  \"type\": \"board_post_edit\",\r\n  \"object\": {\r\n    \"id\": 2,\r\n    \"from_id\": -1234,\r\n    \"date\": 1533404708,\r\n    \"text\": \"test1\",\r\n    \"topic_owner_id\": -1234,\r\n    \"topic_id\": 38446232\r\n  },\r\n  \"group_id\": 1234\r\n}";
-
 			var groupId = 1234;
 			var text = "test1";
 
-			var vkResponse = updateJson.GetVkResponse();
+			var updateJson = LoadJsonFromFile("board_post_edit");
+
+			var vkResponse = updateJson.ToVkResponse();
 
 			var update = GroupUpdate.FromJson(vkResponse);
 
@@ -67,13 +72,13 @@ namespace VkNet.BotsLongPollExtension.Tests.GroupUpdates
 		[Test]
 		public void BoardPostRestoreTest()
 		{
-			var updateJson =
-				"{\r\n  \"type\": \"board_post_restore\",\r\n  \"object\": {\r\n    \"id\": 3,\r\n    \"from_id\": 123,\r\n    \"date\": 1533404752,\r\n    \"text\": \"test\",\r\n    \"topic_owner_id\": -1234,\r\n    \"topic_id\": 38446232\r\n  },\r\n  \"group_id\": 1234\r\n}";
 			var userId = 123;
 			var groupId = 1234;
 			var text = "test";
 
-			var vkResponse = updateJson.GetVkResponse();
+			var updateJson = LoadJsonFromFile("board_post_restore");
+
+			var vkResponse = updateJson.ToVkResponse();
 
 			var update = GroupUpdate.FromJson(vkResponse);
 
@@ -87,14 +92,13 @@ namespace VkNet.BotsLongPollExtension.Tests.GroupUpdates
 		[Test]
 		public void BoardPostDeleteTest()
 		{
-			var updateJson =
-				"{\r\n  \"type\": \"board_post_delete\",\r\n  \"object\": {\r\n    \"topic_owner_id\": -1234,\r\n    \"id\": 3,\r\n    \"topic_id\": 6\r\n  },\r\n  \"group_id\": 1234\r\n}";
-
 			var groupId = 1234;
 			var topicId = 6;
 			var id = 3;
 
-			var vkResponse = updateJson.GetVkResponse();
+			var updateJson = LoadJsonFromFile("board_post_delete");
+
+			var vkResponse = updateJson.ToVkResponse();
 
 			var update = GroupUpdate.FromJson(vkResponse);
 

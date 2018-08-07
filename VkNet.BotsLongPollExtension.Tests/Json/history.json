@@ -1,0 +1,41 @@
+{
+  "ts": "713",
+  "updates": [
+    {
+      "type": "message_new",
+      "object": {
+        "date": 1533632855,
+        "from_id": 123,
+        "id": 858,
+        "out": 0,
+        "peer_id": 123,
+        "text": "test",
+        "conversation_message_id": 820,
+        "fwd_messages": [],
+        "important": false,
+        "random_id": 0,
+        "attachments": [],
+        "is_hidden": false
+      },
+      "group_id": 1234
+    },
+	{
+	  "type": "message_new",
+	  "object": {
+		"date": 1533460380,
+		"from_id": 123,
+		"id": 853,
+		"out": 0,
+		"peer_id": 123,
+		"text": "0",
+		"conversation_message_id": 815,
+		"fwd_messages": [],
+		"important": false,
+		"random_id": 0,
+		"attachments": [],
+		"is_hidden": false
+	},
+	"group_id": 1234
+   }
+  ]
+}
